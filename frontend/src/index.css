@@ -1,0 +1,24 @@
+@import './assets/Inter/inter.css';
+@import 'frappe-ui/src/style.css';
+
+
+body 
+  *{
+    font-family: Verdana;
+  }
+
+*::-webkit-scrollbar-thumb {
+background: #c0c6cc;
+border-radius: 6px;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner {
+background: #ebeef0;
+}
+
+*::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+    

@@ -1,0 +1,100 @@
+[
+ {
+  "application_logo": null,
+  "docstatus": 0,
+  "doctype": "Go1 Navbar Settings",
+  "logo_width": null,
+  "modified": "2025-03-04 11:59:45.285553",
+  "name": "Go1 Navbar Settings",
+  "sidebar_settings": [
+   {
+    "enabled": 1,
+    "icon": "layout",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/dashboard",
+    "title": "Dashboard"
+   },
+   {
+    "enabled": 1,
+    "icon": "book",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/request-for-quotation",
+    "title": "RFQ"
+   },
+   {
+    "enabled": 1,
+    "icon": "book-open",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/supplier-quotation",
+    "title": " Quotation"
+   },
+   {
+    "enabled": 1,
+    "icon": "grid",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/blanket-orders",
+    "title": "Blanket Order"
+   },
+   {
+    "enabled": 1,
+    "icon": "shopping-cart",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/purchase-order",
+    "title": "Orders"
+   },
+   {
+    "enabled": 1,
+    "icon": "file",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/supplier-invoice",
+    "title": "Invoice"
+   },
+   {
+    "enabled": 1,
+    "icon": "home",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/addresses",
+    "title": "Addresses"
+   },
+   {
+    "enabled": 1,
+    "icon": "help-circle",
+    "parent": "Go1 Navbar Settings",
+    "parentfield": "sidebar_settings",
+    "parenttype": "Go1 Navbar Settings",
+    "reference_document": null,
+    "role": null,
+    "route": "/issues",
+    "title": "Ticket "
+   }
+  ]
+ }
+]

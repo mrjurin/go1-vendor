@@ -1,0 +1,176 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-10-28 19:08:49.050023",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "personal_details_tab",
+  "status",
+  "column_break_g8rn",
+  "section_break_mlfz",
+  "first_name",
+  "last_name",
+  "email",
+  "column_break_xsqm",
+  "supplier_id",
+  "phone",
+  "section_break_8as7",
+  "address_line1",
+  "address_line2",
+  "column_break_o1fo",
+  "country",
+  "state",
+  "city",
+  "zip_code",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "personal_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Personal Details"
+  },
+  {
+   "default": "Waiting for Approval",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Waiting for Approval\nApproved\nRejected",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_g8rn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_mlfz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "E-Mail",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "supplier_id",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Supplier ID",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_xsqm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_8as7",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_o1fo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "SR-"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Mobile Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "address_line1",
+   "fieldtype": "Small Text",
+   "label": "Address Line1"
+  },
+  {
+   "fieldname": "address_line2",
+   "fieldtype": "Small Text",
+   "label": "Address Line2"
+  },
+  {
+   "fieldname": "zip_code",
+   "fieldtype": "Data",
+   "label": "Postal Code",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-14 15:01:10.674983",
+ "modified_by": "Administrator",
+ "module": "Go1 Vendor",
+ "name": "Supplier Registration",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

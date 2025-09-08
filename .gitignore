@@ -1,0 +1,10 @@
+.DS_Store
+*.pyc
+*.egg-info
+*.swp
+.venv
+tags
+node_modules
+__pycache__
+go1_vendor/www/go1_vendor.html
+go1_vendor/public/frontend/
