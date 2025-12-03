@@ -13,7 +13,7 @@
                     : 'ml-2 w-auto opacity-100'
                     ">
                     <div class="text-base font-medium leading-none text-gray-900">
-                        {{ __('Go1_Vendor') }}
+                        {{ __('Vendor') }}
                        
                     </div>
                     <div class="mt-1 text-sm leading-none text-gray-700">
@@ -42,7 +42,7 @@
  
 import GO1Logo from '@/components/Icons/GO1Logo.vue'
 import { Dropdown,FeatherIcon,createResource } from 'frappe-ui'
-import { computed, ref, markRaw } from 'vue'
+import { computed, ref, markRaw, watch, onMounted } from 'vue'
 import { session } from '@/data/session';
 
 const props = defineProps({
@@ -68,23 +68,61 @@ const sessionCheck = () => {
         session.logout.submit();      
     }
 };
- 
-let dropdownOptions = ref([
+const hasDeskAccess = ref(false)
+
+const deskAccess = createResource({
+    url: 'frappe.client.get_value',
+    makeParams() {
+        const u = session.user
+        if (!u) return null
+        return { doctype: 'User', filters: { name: u }, fieldname: 'user_type' }
+    },
+    onSuccess(data) {
+        hasDeskAccess.value = data?.message?.user_type === 'System User'
+        if (!hasDeskAccess.value && session.user === 'Administrator') {
+            hasDeskAccess.value = true
+        }
+    },
+    onError() {
+        hasDeskAccess.value = session.user === 'Administrator'
+    },
+})
+
+onMounted(() => {
+    if (session.user && deskAccess.fetch) {
+        deskAccess.fetch()
+    }
+})
+
+watch(
+    () => session.user,
+    (u) => {
+        if (u && deskAccess.fetch) {
+            deskAccess.fetch()
+        }
+    },
+    { immediate: true }
+)
+
+const supportItem = {
+    icon: 'life-buoy',
+    label: computed(() => __('Support')),
+    onClick: () => null,
+}
+
+const deskItem = {
+    icon: 'desk',
+    label: computed(() => __('Switch to Desk')),
+    onClick: () => {
+        window.location.href = '/app'
+    },
+}
+
+const dropdownOptions = computed(() => [
     {
         group: 'Manage',
         hideLabel: true,
-        items: [            
-            {
-                icon: 'life-buoy',
-                label: computed(() => __('Support')),
-                onClick: () => window.open('https://github.com/TridotsTech/go1-vendor', '_blank'),
-            },
-            {
-                icon: 'book-open',
-                label: computed(() => __('Docs')),
-                onClick: () => window.open('https://github.com/TridotsTech/go1-vendor', '_blank'),
-            },
-        ],
+        items: hasDeskAccess.value ? [supportItem, deskItem] : [supportItem],
     },
     {
         group: 'Others',
@@ -93,7 +131,7 @@ let dropdownOptions = ref([
             {
                 icon: 'log-out',
                 label: computed(() => __('Log out')),
-                 onClick: sessionCheck,
+                onClick: sessionCheck,
             },
         ],
     },

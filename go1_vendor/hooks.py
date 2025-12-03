@@ -249,4 +249,4 @@ fixtures = [
 	}
 
 ]
-website_route_rules = [{'from_route': '/go1_vendor/<path:app_path>', 'to_route': 'vendor'},]
+website_route_rules = [{'from_route': '/vendor/<path:app_path>', 'to_route': 'vendor'},]
