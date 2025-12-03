@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build --base=/assets/go1_vendor/frontend/ && yarn copy-html-entry",
     "preview": "vite preview",
-    "copy-html-entry": "cp ../go1_vendor/public/frontend/index.html ../go1_vendor/www/go1_vendor.html"
+    "copy-html-entry": "cp ../go1_vendor/public/frontend/index.html ../go1_vendor/www/vendor.html"
   },
   "dependencies": {
     "chart.js": "^4.4.5",
