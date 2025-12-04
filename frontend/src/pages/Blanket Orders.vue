@@ -3,22 +3,16 @@
     <div class="h-full border-r bg-gray-50">
       <AppSidebar />
     </div>
-
     <div class="h-full w-full flex flex-col overflow-auto">
-      <!-- Header Section -->
-      <div class="mb-2 border-b py-3 px-5 flex justify-between items-center">
-        <div><span>Supplier Bills</span></div>
-        <router-link to="/new-supplier-bill">
-          <Button variant="solid" theme="gray" size="sm">New Bill</Button>
-        </router-link>
+      <div class="mb-2 border-b py-3 px-5">
+        <span>Blanket Orders</span>
       </div>
-
-      <!-- Main Content -->
-      <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <div class="flex-1 flex flex-col h-full">
+        <!-- <AppHeader /> -->
         <slot />
-
-        <!-- Filters & Reset Button -->
+        <!-- Filter and Reset button section -->
         <div class="flex mt-4 mb-4 px-4 justify-between">
+          <!-- Filters on the left side -->
           <div class="flex">
             <div
               class="p-1 w-36"
@@ -32,7 +26,7 @@
               />
             </div>
           </div>
-
+          <!-- Reset button on the right side -->
           <div class="ml-6 mt-1">
             <Button
               variant="subtle"
@@ -44,8 +38,7 @@
             </Button>
           </div>
         </div>
-
-        <!-- ListView Section -->
+        <!-- ListView section -->
         <div
           class="flex-1 flex flex-col px-5 overflow-auto"
           v-if="supplier_detail.data"
@@ -56,7 +49,7 @@
             :rows="supplier_detail.data"
             :options="{
               getRowRoute: (row) => ({
-                name: 'Supplier Invoice Details',
+                name: 'Blanket Order',
                 params: { id: row.name },
               }),
               selectable: true,
@@ -70,17 +63,37 @@
             @row-click="OpenClick"
           >
             <template #cell="{ item, row, column }">
-              <div v-if="column.key === 'status'">
-                <Badge v-bind="getStatusTheme(item)" size="sm" :label="item" />
+              <div v-if="column.key === 'docstatus'">
+                <Badge
+                  :theme="getStatusTheme(item).theme"
+                  size="sm"
+                  :label="getStatusLabel(item)"
+                />
               </div>
               <div v-else-if="column.key === 'naming_series'">
-                <span class="text-black text-base truncate block max-w-[170px]">
+                <span
+                  class="text-black text-base"
+                  style="
+                    max-width: 170px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    display: block;
+                  "
+                >
                   {{ item }}
                 </span>
               </div>
               <div v-else>
                 <span
-                  class="font-small text-gray-700 text-base truncate block max-w-[170px]"
+                  class="font-small text-gray-700 text-base"
+                  style="
+                    max-width: 170px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    display: block;
+                  "
                 >
                   {{ item }}
                 </span>
@@ -88,9 +101,10 @@
             </template>
           </ListView>
 
-          <!-- List Footer for Pagination -->
+          <!-- List Footer for pagination -->
           <div class="w-full my-2">
             <div class="flex justify-between items-center">
+              <!-- Pagination controls on the left -->
               <ListFooter
                 :modelValue="pageLengthCount"
                 :options="{
@@ -128,12 +142,9 @@ import { ref, onMounted, watch, reactive } from 'vue'
 const router = useRouter()
 const columns_data = ref([])
 const filter_data = ref([])
-const field_filters = reactive({})
+let field_filters = reactive({})
 const pageLengthCount = ref(20)
 const supplieroption = ref('')
-const companyoption = ref('')
-
-// const totalRows=ref('')
 
 const users = createResource({
   url: 'go1_vendor.apidata.get_test',
@@ -143,7 +154,7 @@ users.fetch()
 const logged_users = users
 
 const supplier_detail = createResource({
-  url: 'go1_vendor.apidata.get_purchaseinvoice',
+  url: 'go1_vendor.apidata.get_blanketorder',
   params: {
     field_filters: JSON.stringify(field_filters),
   },
@@ -151,7 +162,7 @@ const supplier_detail = createResource({
 })
 
 const order = createResource({
-  url: 'go1_vendor.api.get_invoice',
+  url: 'go1_vendor.api.get_blanket',
   method: 'GET',
 })
 
@@ -168,8 +179,8 @@ const fetchOrder = async () => {
     label: 'ID',
   })
   columns_data.value.push(
-    { label: 'Name', key: 'name', width: 2 },
-    { label: 'Status', key: 'status', width: 1 }
+    { label: 'Name', key: 'name', width: 1 },
+    { label: 'Status', key: 'docstatus', width: 1 }
   )
 
   fields.forEach((field) => {
@@ -181,7 +192,7 @@ const fetchOrder = async () => {
       })
     }
     if (field.in_standard_filter) {
-      if (logged_users.data && field.fieldname === 'supplier') {
+      if (logged_users.data && field.fieldname === 'vendor') {
         return
       }
       filter_data.value.push(field)
@@ -191,7 +202,7 @@ const fetchOrder = async () => {
 
 const OpenClick = (row) => {
   if (row && row.name) {
-    router.push({ name: 'Supplier Invoice Details', params: { id: row.name } })
+    router.push({ name: 'Request Quotation Details', params: { id: row.name } })
   } else {
     console.error('Row data is invalid:', row)
   }
@@ -216,22 +227,29 @@ watch(
   { deep: true }
 )
 
-const getStatusTheme = (status) => {
-  switch (status) {
-    case 'Draft':
+const getStatusTheme = (docstatus) => {
+  switch (parseInt(docstatus)) {
+    case 0:
       return { theme: 'red' }
-    case 'Unpaid':
-      return { theme: 'red' }
-    case 'Paid':
+    case 1:
       return { theme: 'blue' }
-    case 'To Receive and Bill':
+    case 2:
       return { theme: 'green' }
-    case 'On Hold':
-      return { theme: 'gray' }
-    case 'To Bill':
-      return { theme: 'orange' }
     default:
       return { theme: 'gray' }
+  }
+}
+
+const getStatusLabel = (docstatus) => {
+  switch (parseInt(docstatus)) {
+    case 0:
+      return 'Draft'
+    case 1:
+      return 'Submitted'
+    case 2:
+      return 'Cancelled'
+    default:
+      return 'Unknown'
   }
 }
 
@@ -266,10 +284,7 @@ const getComponentProps = (fieldData) => {
       variant: 'subtle',
       type: 'select',
       placeholder: fieldData.label,
-      options:
-        fieldData.fieldname == 'supplier'
-          ? supplieroption.value
-          : companyoption.value,
+      options: supplieroption.value,
     },
     Date: {
       size: 'sm',
@@ -300,18 +315,11 @@ const createSupplier = async () => {
     const response = await fetch(
       '/api/resource/Supplier?fields=["supplier_name"]'
     )
-    const companyresponse = await fetch(
-      '/api/resource/Company?fields=["company_name"]'
-    )
-
     if (!response.ok) throw new Error('Network response was not ok')
 
     const prioritydata = await response.json()
-    const companydata = await companyresponse.json()
     supplieroption.value =
       prioritydata.data.map((user) => user.supplier_name) || []
-    companyoption.value =
-      companydata.data.map((user) => user.company_name) || []
   } catch (error) {
     console.error('Error fetching priorities:', error)
   }
