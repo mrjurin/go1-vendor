@@ -231,8 +231,10 @@ const createQuotation = async () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'X-Frappe-CSRF-Token': window.csrf_token,
       },
       body: JSON.stringify(quotationData),
+      credentials: 'include',
     })
 
     const result = await response.json()

@@ -155,9 +155,9 @@ const fetchGrandTotal = async () => {
 }
 
 const formatAmount = (amount) => {
-  const formatter = new Intl.NumberFormat('en-IN', {
+  const formatter = new Intl.NumberFormat('en-MY', {
     style: 'currency',
-    currency: 'INR',
+    currency: 'MYR',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })

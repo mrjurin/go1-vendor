@@ -439,8 +439,10 @@ const saveSupplierInvoice = async () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'X-Frappe-CSRF-Token': window.csrf_token,
       },
       body: JSON.stringify(supplierInvoiceData),
+      credentials: 'include',
     })
 
     const result = await response.json()

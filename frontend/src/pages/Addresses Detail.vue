@@ -246,7 +246,7 @@ const submitChanges = async () => {
     address_line2: address4.value,
     city: address5.value,
     state: address6.value,
-    country: address7.value.value,
+    country: address7.value,
     pincode: address8.value,
     email_id: address9.value,
     phone: address10.value,
@@ -257,8 +257,12 @@ const submitChanges = async () => {
   try {
     const response = await fetch(`/api/resource/Address/${issueId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Frappe-CSRF-Token': window.csrf_token,
+      },
       body: JSON.stringify(issueData),
+      credentials: 'include',
     })
     // for update
     if (!response.ok) throw new Error('Error updating address')
@@ -268,8 +272,8 @@ const submitChanges = async () => {
     address4.value = issueData.address_line2
     address5.value = issueData.city
     address6.value = issueData.state
-    address7.value = issueData.pincode
-    address8.value = issueData.country
+    address7.value = issueData.country
+    address8.value = issueData.pincode
     address9.value = issueData.email_id
     address10.value = issueData.phone
     address11.value = issueData.fax
